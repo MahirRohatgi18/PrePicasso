@@ -1,0 +1,51 @@
+# Dimensions of the structure
+grid_height = 35
+grid_width = 50
+
+
+# Customize the basic block
+block_size = 10
+block_height = 3
+lines = 2
+sw = 1
+
+noise_scale = .05
+noise_multiplier = 100
+noise_dampener = 1
+
+
+# Pure maths , DONT TOUCH 
+w = grid_width * block_size + grid_height * block_size + image_border_buff * block_size
+h = grid_height * block_size/2 + grid_width * block_size/2 + (int(noise(0, 0) * noise_multiplier) / noise_dampener * block_height) + image_border_buff * block_size
+
+start_block_x = w/2 - grid_height/2 * block_size + grid_width/2 * block_size
+start_block_y = h/2 - grid_height/2 * block_size/2 - grid_width/2 * block_size/2 + (int(noise(0, 0) * noise_multiplier) / noise_dampener * block_height/2)
+
+
+def draw_block(x, y, h):
+    beginShape()
+    
+    # Top Face
+    vertex(x - block_size, y)
+    vertex(x, y - block_size/2)
+    vertex(x + block_size, y)
+    vertex(x, y + block_size/2)
+    endShape(CLOSE)
+    
+    # Left Face
+    beginShape()
+    vertex(x - block_size, y)
+    vertex(x, y + block_size/2)
+    vertex(x, y + block_height + block_size/2)
+    vertex(x - block_size, y + block_height)
+    endShape(CLOSE)
+    
+ 
+    
+    # Right Face
+    beginShape()
+    vertex(x + block_size, y)
+    vertex(x, y + block_size/2)
+    vertex(x, y + block_height + block_size/2)
+    vertex(x + block_size, y + block_height)
+    endShape(CLOSE)
